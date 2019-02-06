@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  animalID: 1
+  profileID: 1
+  name: MyString
+  species: MyString
+  gender: MyString
+  color: MyString
+  markings: MyText
+  location: MyString
+  neutered: MyString
+  vaccinated: MyString
+  adopted: MyString
+  remarks: MyText
+  cagelabel: MyString
+
+two:
+  animalID: 1
+  profileID: 1
+  name: MyString
+  species: MyString
+  gender: MyString
+  color: MyString
+  markings: MyText
+  location: MyString
+  neutered: MyString
+  vaccinated: MyString
+  adopted: MyString
+  remarks: MyText
+  cagelabel: MyString

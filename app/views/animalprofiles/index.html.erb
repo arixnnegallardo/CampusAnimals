@@ -1,0 +1,177 @@
+<style type="text/css">
+  .item {
+    cursor: pointer;
+  }
+
+  tr:hover {
+          background-color: #08E8DE;
+        }
+
+        textarea {
+      background: transparent;
+      resize: none;
+      border: 0 none;
+      width: 100%;
+      outline: none;
+    }
+
+    select {
+    border: none;
+    background-color: transparent;
+}
+   
+</style>
+
+<div class="ui fluid container" style="padding-top: 5%;padding-left: 3%;padding-right: 3%">
+  <div style="font-size: 30px">
+    PROFILES
+  </div>
+</div>
+
+<div class="ui fluid container" style="padding-top: 1%;padding-left: 3%;padding-right: 3%;font-size: 12px">
+  <table class="ui small compact table">
+      <thead>
+        <tr>
+          <th width="2%">actions</th>
+            <th width="15%">name</th>
+            <th>species</th>
+            <th width="2%">gender</th>
+            <th>color</th>
+            <th>markings</th>
+            <th>location</th>
+            <th width="2%">neutered</th>
+            <th width="2%">vaccinated</th>
+            <th width="2%">adopted</th>
+            <th>remarks</th>
+            <th>cage label</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @animalprofiles.each do |animalprofile| %>
+          <tr>
+            <td><%= link_to 'Edit', edit_animalprofile_path(animalprofile) %></td>
+            <td><%= animalprofile.name %></td>
+            <td><%= animalprofile.species %></td>
+            <td><%= animalprofile.gender %></td>
+            <td><%= animalprofile.color %></td>
+            <td><%= animalprofile.markings %></td>
+            <td><%= animalprofile.location %></td>
+            <td><%= animalprofile.neutered %></td>
+            <td><%= animalprofile.vaccinated %></td>
+            <td><%= animalprofile.adopted %></td>
+            <td><%= animalprofile.remarks %></td>
+            <td><%= animalprofile.cagelabel %></td>
+          </tr>
+        <% end %>
+      </tbody>
+  </table>
+</div>
+
+<div class="ui container" style="position: fixed; bottom: 0;width: 100%; height: 15%;z-index: 10;padding-left: 3%;padding-right: 3%;background: linear-gradient(to bottom, #ffffff 0%, #ccffff 100%);">
+  <div class="ui grid" style="">
+    <div class="row" style="padding-top: 5%;">
+      <div class="ui three wide column" style="">
+        <div class="ui horizontal link list">
+          <div class="item" style="color: black;">
+            <u> switch to view only mode </u>
+          </div>
+        </div>  
+      </div>
+      <div class="ui thirteen wide column" style="text-align: right;">
+        <div class="ui horizontal link list">
+          <div class="add item" style="color: black;">
+            <u> <%= link_to 'add a new profile', new_animalprofile_path %> </u>
+          </div>
+          <div class="item" style="color: black;">
+            <u> select all </u>
+          </div>
+          <div class="item" style="color: black;">
+            <u> delete all </u>
+          </div>
+          <div class="item" style="color: black;">
+            <u> save to database </u>
+          </div>
+        </div>  
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+  $(".add").click(function(event) {
+    //alert("hello");
+    //$(".addform").toggle("");
+    //jump to end of page -- where the input boxes for adding a new profile are
+  });
+
+  autosize($('textarea'));
+
+  $(document).on('keypress',function(e) {
+    mydata= 'data[name]=Basha&data[gender]=f'
+      if(e.which == 13) {     
+        Rails.ajax({
+        type: "POST", 
+          url: "/animalprofile/add",
+          data: mydata,
+          complete: function(repsonse){
+            alert('added');
+          }
+      });
+      }
+  });
+
+
+</script>
+
+<!-- <p id="notice"><%= notice %></p>
+
+<h1>Animalprofiles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Animalid</th>
+      <th>Profileid</th>
+      <th>Name</th>
+      <th>Species</th>
+      <th>Gender</th>
+      <th>Color</th>
+      <th>Markings</th>
+      <th>Location</th>
+      <th>Neutered</th>
+      <th>Vaccinated</th>
+      <th>Adopted</th>
+      <th>Remarks</th>
+      <th>Cagelabel</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @animalprofiles.each do |animalprofile| %>
+      <tr>
+        <td><%= animalprofile.animalID %></td>
+        <td><%= animalprofile.profileID %></td>
+        <td><%= animalprofile.name %></td>
+        <td><%= animalprofile.species %></td>
+        <td><%= animalprofile.gender %></td>
+        <td><%= animalprofile.color %></td>
+        <td><%= animalprofile.markings %></td>
+        <td><%= animalprofile.location %></td>
+        <td><%= animalprofile.neutered %></td>
+        <td><%= animalprofile.vaccinated %></td>
+        <td><%= animalprofile.adopted %></td>
+        <td><%= animalprofile.remarks %></td>
+        <td><%= animalprofile.cagelabel %></td>
+        <td><%= link_to 'Show', animalprofile %></td>
+        <td><%= link_to 'Edit', edit_animalprofile_path(animalprofile) %></td>
+        <td><%= link_to 'Destroy', animalprofile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br> -->
+
+

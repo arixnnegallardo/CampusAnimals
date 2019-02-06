@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Animalid:</strong>
+  <%= @animalprofile.animalID %>
+</p>
+
+<p>
+  <strong>Profileid:</strong>
+  <%= @animalprofile.profileID %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @animalprofile.name %>
+</p>
+
+<p>
+  <strong>Species:</strong>
+  <%= @animalprofile.species %>
+</p>
+
+<p>
+  <strong>Gender:</strong>
+  <%= @animalprofile.gender %>
+</p>
+
+<p>
+  <strong>Color:</strong>
+  <%= @animalprofile.color %>
+</p>
+
+<p>
+  <strong>Markings:</strong>
+  <%= @animalprofile.markings %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @animalprofile.location %>
+</p>
+
+<p>
+  <strong>Neutered:</strong>
+  <%= @animalprofile.neutered %>
+</p>
+
+<p>
+  <strong>Vaccinated:</strong>
+  <%= @animalprofile.vaccinated %>
+</p>
+
+<p>
+  <strong>Adopted:</strong>
+  <%= @animalprofile.adopted %>
+</p>
+
+<p>
+  <strong>Remarks:</strong>
+  <%= @animalprofile.remarks %>
+</p>
+
+<p>
+  <strong>Cagelabel:</strong>
+  <%= @animalprofile.cagelabel %>
+</p>
+
+<%= link_to 'Edit', edit_animalprofile_path(@animalprofile) %> |
+<%= link_to 'Back', animalprofiles_path %>

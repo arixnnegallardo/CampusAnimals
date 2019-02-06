@@ -1,0 +1,2 @@
+class Animalprofile < ApplicationRecord
+end

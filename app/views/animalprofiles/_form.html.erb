@@ -1,0 +1,82 @@
+<%= form_with(model: animalprofile, local: true) do |form| %>
+  <% if animalprofile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(animalprofile.errors.count, "error") %> prohibited this animalprofile from being saved:</h2>
+
+      <ul>
+      <% animalprofile.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :animalID %>
+    <%= form.number_field :animalID %>
+  </div>
+
+  <div class="field">
+    <%= form.label :profileID %>
+    <%= form.number_field :profileID %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :species %>
+    <%= form.text_field :species %>
+  </div>
+
+  <div class="field">
+    <%= form.label :gender %>
+    <%= form.text_field :gender %>
+  </div>
+
+  <div class="field">
+    <%= form.label :color %>
+    <%= form.text_field :color %>
+  </div>
+
+  <div class="field">
+    <%= form.label :markings %>
+    <%= form.text_area :markings %>
+  </div>
+
+  <div class="field">
+    <%= form.label :location %>
+    <%= form.text_field :location %>
+  </div>
+
+  <div class="field">
+    <%= form.label :neutered %>
+    <%= form.text_field :neutered %>
+  </div>
+
+  <div class="field">
+    <%= form.label :vaccinated %>
+    <%= form.text_field :vaccinated %>
+  </div>
+
+  <div class="field">
+    <%= form.label :adopted %>
+    <%= form.text_field :adopted %>
+  </div>
+
+  <div class="field">
+    <%= form.label :remarks %>
+    <%= form.text_area :remarks %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cagelabel %>
+    <%= form.text_field :cagelabel %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
