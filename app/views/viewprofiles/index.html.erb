@@ -1,0 +1,94 @@
+<style type="text/css">
+    a:hover {background-color:transparent;color: maroon}
+    .extra:hover {cursor: pointer};
+</style>
+
+<p id="notice"><%= notice %></p>
+
+<div class="ui fluid container" style="padding-top: 3%;padding-bottom: 3%;padding-left: 8.5%;padding-right: 13.5%;position: fixed;top: 0;z-index: 10;background-color: white">
+    <div class="ui grid">
+        <div class="row">
+            <div class="ui seven wide column" style="font-size: 30px">
+                campus animals
+            </div>
+            <div class="ui nine wide column" style="text-align: right; font-size: 15px">
+                    <a href="#">browse profiles </a> &nbsp;&nbsp;&nbsp;&nbsp;  
+                    <a href="animalprofiles">add/edit profiles </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                logout
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ui container" style="padding-top: 6%;padding-left: 3%;padding-right: 3%">
+    <div class="ui grid">
+        <div class="row">
+            <div class="three wide column" style="font-size: 15px;font-weight: bolder;">
+                showing all profiles
+            </div>
+            <div class="thirteen wide column" style="text-align: right;">
+                <div class="ui icon input" style="display: inline-block;">
+                    <i class="search icon"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+
+                <div class="ui form" style="display: inline-block;">
+                    <select class="ui fluid dropdown" name='cat '>
+                        <option value="" selected="selected" disabled>animals</option>
+                        <option value="business">dog</option>
+                        <option value="job inquiry">cat</option>
+                        <option value="general">bird</option>
+                    </select>
+                </div>
+
+                <div class="ui form" style="display: inline-block;">
+                    <select class="ui fluid dropdown" name='cat '>
+                        <option value="" selected="selected" disabled>locations</option>
+                    </select>
+                </div>
+
+                <div class="ui form" style="display: inline-block;">
+                    <select class="ui fluid dropdown" name='cat '>
+                        <option value="" selected="selected" disabled>neutered</option>
+                    </select>
+                </div>
+
+                <div class="ui form" style="display: inline-block;">
+                    <select class="ui fluid dropdown" name='cat '>
+                        <option value="" selected="selected" disabled>adopted</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ui container"  style="padding-top: 3%;padding-left: 3%;padding-right: 3%">
+  <div class="ui four cards">
+
+        <% @animalprofiles.each do |animalprofile| %>
+            <div class="card">
+                <div class="image">
+                    <img src="https://via.placeholder.com/150">
+                </div>
+                <div class="content">
+                    <div class="header"><%= animalprofile.name %></div>
+                    <div class="meta">
+                        <%= animalprofile.gender %>, <%= animalprofile.species %>
+                    </div>
+                    <div class="description">
+                        neutered: <%= animalprofile.neutered %> <br>
+                        vaccinated: <%= animalprofile.vaccinated %><br>
+                        adopted: <%= animalprofile.adopted %>
+                    </div>
+                </div>
+                <div class="extra content" style="text-align: center">
+                    <%= link_to 'view full profile', animalprofile %>
+                </div>
+            </div>
+
+        <% end %>
+
+    </div>
+</div>

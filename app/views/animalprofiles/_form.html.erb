@@ -12,71 +12,77 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :animalID %>
-    <%= form.number_field :animalID %>
+    animal ID
+    <div class="ui fluid input"> <%= form.number_field :animalID %></div>
   </div>
 
   <div class="field">
-    <%= form.label :profileID %>
-    <%= form.number_field :profileID %>
+    profile ID
+    <div class="ui fluid input"> <%= form.number_field :profileID %> </div>
   </div>
 
   <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+    name
+    <div class="ui fluid input"> <%= form.text_field :name %> </div>
   </div>
 
   <div class="field">
-    <%= form.label :species %>
-    <%= form.text_field :species %>
+    species
+    <div class="ui fluid input"> <%= form.text_field :species %> </div>
   </div>
 
   <div class="field">
-    <%= form.label :gender %>
-    <%= form.text_field :gender %>
+    gender
+    <div class="ui fluid input"> <%= form.text_field :gender %> </div>
   </div>
 
   <div class="field">
-    <%= form.label :color %>
-    <%= form.text_field :color %>
+    color
+    <div class="ui fluid input"> <%= form.text_field :color %> </div>
   </div>
 
   <div class="field">
-    <%= form.label :markings %>
-    <%= form.text_area :markings %>
+    markings
+    <div class="ui form">
+    <textarea name="animalprofile[markings]" id="animalprofile_markings"> </textarea>
+    </div>
   </div>
 
   <div class="field">
-    <%= form.label :location %>
-    <%= form.text_field :location %>
+    location
+    <div class="ui fluid input"> <%= form.text_field :location %></div>
   </div>
 
   <div class="field">
-    <%= form.label :neutered %>
-    <%= form.text_field :neutered %>
+    neutered
+    <div class="ui fluid input"> <%= form.text_field :neutered %> </div>
   </div>
 
   <div class="field">
-    <%= form.label :vaccinated %>
-    <%= form.text_field :vaccinated %>
+    vaccinated
+    <div class="ui fluid input"> <%= form.text_field :vaccinated %> </div>
   </div>
 
   <div class="field">
-    <%= form.label :adopted %>
-    <%= form.text_field :adopted %>
+    adopted
+    <div class="ui fluid input"> <%= form.text_field :adopted %> </div>
   </div>
 
   <div class="field">
-    <%= form.label :remarks %>
-    <%= form.text_area :remarks %>
+    remarks
+    <div class="ui form">
+     <textarea name="animalprofile[remarks]" id="animalprofile_remarks"></textarea></div>
   </div>
 
   <div class="field">
-    <%= form.label :cagelabel %>
-    <%= form.text_field :cagelabel %>
+    cage label
+    <div class="ui fluid input"> <%= form.text_field :cagelabel %> </div>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <br>
+  <div class="actions" style="text-align: right">
+    <a href="/animalprofiles"><div class="ui basic blue button">BACK</div></a>
+    <input class="ui blue button" type="submit" name="commit" value="Add Animal Profile" data-disable-with="Add Animal Profile" />
   </div>
 <% end %>
+

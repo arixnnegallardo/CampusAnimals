@@ -19,10 +19,27 @@
     border: none;
     background-color: transparent;
 }
+
+ a:hover {background-color:transparent;color: maroon}
    
 </style>
 
-<div class="ui fluid container" style="padding-top: 5%;padding-left: 3%;padding-right: 3%">
+<div class="ui fluid container" style="padding-top: 3%;padding-bottom: 3%;padding-left: 3%;padding-right: 8%;position: fixed;top: 0;z-index: 10;background-color: white">
+    <div class="ui grid">
+        <div class="row">
+            <div class="ui seven wide column" style="font-size: 30px">
+                campus animals
+            </div>
+            <div class="ui nine wide column" style="text-align: right; font-size: 15px">
+                    <a href="/viewprofiles">browse profiles </a> &nbsp;&nbsp;&nbsp;&nbsp;  
+                    <a href="#">add/edit profiles </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                logout
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ui fluid container" style="padding-top: 6%;padding-left: 3%;padding-right: 3%">
   <div style="font-size: 30px">
     PROFILES
   </div>
@@ -32,7 +49,6 @@
   <table class="ui small compact table">
       <thead>
         <tr>
-          <th width="2%">actions</th>
             <th width="15%">name</th>
             <th>species</th>
             <th width="2%">gender</th>
@@ -44,12 +60,12 @@
             <th width="2%">adopted</th>
             <th>remarks</th>
             <th>cage label</th>
+            <th></th>
         </tr>
       </thead>
       <tbody>
         <% @animalprofiles.each do |animalprofile| %>
           <tr>
-            <td><%= link_to 'Edit', edit_animalprofile_path(animalprofile) %></td>
             <td><%= animalprofile.name %></td>
             <td><%= animalprofile.species %></td>
             <td><%= animalprofile.gender %></td>
@@ -61,13 +77,22 @@
             <td><%= animalprofile.adopted %></td>
             <td><%= animalprofile.remarks %></td>
             <td><%= animalprofile.cagelabel %></td>
+
+            <td>
+              <%= link_to edit_animalprofile_path(animalprofile) do%>
+                <i class="edit icon"></i>
+              <% end %>
+              <%= link_to animalprofile, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                  <i class="ui trash icon"></i>
+                <% end %>
+            </td>
           </tr>
         <% end %>
       </tbody>
   </table>
 </div>
 
-<div class="ui container" style="position: fixed; bottom: 0;width: 100%; height: 15%;z-index: 10;padding-left: 3%;padding-right: 3%;background: linear-gradient(to bottom, #ffffff 0%, #ccffff 100%);">
+<div class="ui fluid container" style="position: fixed; bottom: 0;width: 100%; height: 15%;z-index: 10;padding-left: 3%;padding-right: 8%;">
   <div class="ui grid" style="">
     <div class="row" style="padding-top: 5%;">
       <div class="ui three wide column" style="">
@@ -80,7 +105,7 @@
       <div class="ui thirteen wide column" style="text-align: right;">
         <div class="ui horizontal link list">
           <div class="add item" style="color: black;">
-            <u> <%= link_to 'add a new profile', new_animalprofile_path %> </u>
+            <u> <a href="/animalprofiles/new" style="color: black;">add a new profile</a> </u>
           </div>
           <div class="item" style="color: black;">
             <u> select all </u>
@@ -98,6 +123,11 @@
 </div>
 
 <script type="text/javascript">
+
+  $("tr").click(function(event) {
+    $("tr").css('background-color','white');
+    $(this).css('background-color','#08E8DE');
+  });
 
   $(".add").click(function(event) {
     //alert("hello");
@@ -121,57 +151,61 @@
       }
   });
 
+  $("tr").dbclick(function(event) {
+    alert('double click');
+  });
+
 
 </script>
 
-<!-- <p id="notice"><%= notice %></p>
+  <!-- <p id="notice"><%= notice %></p>
 
-<h1>Animalprofiles</h1>
+  <h1>Animalprofiles</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Animalid</th>
-      <th>Profileid</th>
-      <th>Name</th>
-      <th>Species</th>
-      <th>Gender</th>
-      <th>Color</th>
-      <th>Markings</th>
-      <th>Location</th>
-      <th>Neutered</th>
-      <th>Vaccinated</th>
-      <th>Adopted</th>
-      <th>Remarks</th>
-      <th>Cagelabel</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @animalprofiles.each do |animalprofile| %>
+  <table>
+    <thead>
       <tr>
-        <td><%= animalprofile.animalID %></td>
-        <td><%= animalprofile.profileID %></td>
-        <td><%= animalprofile.name %></td>
-        <td><%= animalprofile.species %></td>
-        <td><%= animalprofile.gender %></td>
-        <td><%= animalprofile.color %></td>
-        <td><%= animalprofile.markings %></td>
-        <td><%= animalprofile.location %></td>
-        <td><%= animalprofile.neutered %></td>
-        <td><%= animalprofile.vaccinated %></td>
-        <td><%= animalprofile.adopted %></td>
-        <td><%= animalprofile.remarks %></td>
-        <td><%= animalprofile.cagelabel %></td>
-        <td><%= link_to 'Show', animalprofile %></td>
-        <td><%= link_to 'Edit', edit_animalprofile_path(animalprofile) %></td>
-        <td><%= link_to 'Destroy', animalprofile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Animalid</th>
+        <th>Profileid</th>
+        <th>Name</th>
+        <th>Species</th>
+        <th>Gender</th>
+        <th>Color</th>
+        <th>Markings</th>
+        <th>Location</th>
+        <th>Neutered</th>
+        <th>Vaccinated</th>
+        <th>Adopted</th>
+        <th>Remarks</th>
+        <th>Cagelabel</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br> -->
+    <tbody>
+      <% @animalprofiles.each do |animalprofile| %>
+        <tr>
+          <td><%= animalprofile.animalID %></td>
+          <td><%= animalprofile.profileID %></td>
+          <td><%= animalprofile.name %></td>
+          <td><%= animalprofile.species %></td>
+          <td><%= animalprofile.gender %></td>
+          <td><%= animalprofile.color %></td>
+          <td><%= animalprofile.markings %></td>
+          <td><%= animalprofile.location %></td>
+          <td><%= animalprofile.neutered %></td>
+          <td><%= animalprofile.vaccinated %></td>
+          <td><%= animalprofile.adopted %></td>
+          <td><%= animalprofile.remarks %></td>
+          <td><%= animalprofile.cagelabel %></td>
+          <td><%= link_to 'Show', animalprofile %></td>
+          <td><%= link_to 'Edit', edit_animalprofile_path(animalprofile) %></td>
+          <td><%= link_to 'Destroy', animalprofile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br> -->
 
 

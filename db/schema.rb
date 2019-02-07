@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_06_225242) do
+ActiveRecord::Schema.define(version: 2019_02_07_050917) do
 
   create_table "animalprofiles", force: :cascade do |t|
     t.integer "animalID"
@@ -31,6 +31,11 @@ ActiveRecord::Schema.define(version: 2019_02_06_225242) do
   end
 
   create_table "animals", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "viewprofiles", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

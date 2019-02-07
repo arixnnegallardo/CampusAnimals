@@ -1,5 +1,16 @@
-<h1>New Animalprofile</h1>
+<style type="text/css">
+	a:hover {
+background-color:transparent;
+}
+   
+</style>
 
-<%= render 'form', animalprofile: @animalprofile %>
+<div class="ui container" style="margin-right: 45%;margin-left: 45%;margin-top: 5%;padding: 7%">
+	
+	<i class="caret left icon"></i> <%= link_to 'BACK', animalprofiles_path %>
+	<h1>ADD A NEW ANIMAL PROFILE</h1>
+	<div class="ui divider"></div>
 
-<%= link_to 'Back', animalprofiles_path %>
+	<%= render 'form', animalprofile: @animalprofile %>
+
+</div>

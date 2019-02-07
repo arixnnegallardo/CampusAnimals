@@ -1,0 +1,17 @@
+<%= form_with(model: viewprofile, local: true) do |form| %>
+  <% if viewprofile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(viewprofile.errors.count, "error") %> prohibited this viewprofile from being saved:</h2>
+
+      <ul>
+      <% viewprofile.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

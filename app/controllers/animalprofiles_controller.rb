@@ -6,7 +6,7 @@ class AnimalprofilesController < ApplicationController
   def index
     @animalprofiles = Animalprofile.all
   end
-
+  
   # GET /animalprofiles/1
   # GET /animalprofiles/1.json
   def show
