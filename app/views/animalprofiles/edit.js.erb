@@ -1,0 +1,11 @@
+$("#tablespace").removeClass();
+$("#tablespace").addClass("ui eleven wide column");
+$("#editspace").show();
+$("#editspace").html("<%= j render 'form', animalprofile: @animalprofile %>");
+
+$(".update").click(function(event) {
+	$("#editspace").hide();
+	$("#tablespace").removeClass();
+	$("#tablespace").addClass("ui sixteen wide column");
+	location.reload();
+});

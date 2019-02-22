@@ -34,6 +34,7 @@ class AnimalprofilesController < ApplicationController
   # GET /animalprofiles.json
   def index
     @animalprofiles = Animalprofile.all
+    @animalprofile = Animalprofile.new
   end
   
   # GET /animalprofiles/1
@@ -44,6 +45,7 @@ class AnimalprofilesController < ApplicationController
   # GET /animalprofiles/new
   def new
     @animalprofile = Animalprofile.new
+    @animalprofiles = Animalprofile.all
   end
 
   # GET /animalprofiles/1/edit
@@ -54,9 +56,15 @@ class AnimalprofilesController < ApplicationController
   # POST /animalprofiles.json
   def create
     @animalprofile = Animalprofile.new(animalprofile_params)
+    @animalprofiles = Animalprofile.all
 
     respond_to do |format|
       if @animalprofile.save
+        @animalprofile.animalID = @animalprofile.id; 
+        @animalprofile.profileID = @animalprofile.id; 
+        @animalprofile.save
+        
+        format.js
         format.html { redirect_to @animalprofile, notice: 'Animalprofile was successfully created.' }
         format.json { render :show, status: :created, location: @animalprofile }
       else
@@ -71,6 +79,7 @@ class AnimalprofilesController < ApplicationController
   def update
     respond_to do |format|
       if @animalprofile.update(animalprofile_params)
+        format.js
         format.html { redirect_to @animalprofile, notice: 'Animalprofile was successfully updated.' }
         format.json { render :show, status: :ok, location: @animalprofile }
       else

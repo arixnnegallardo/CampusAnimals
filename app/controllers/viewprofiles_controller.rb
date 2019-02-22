@@ -39,6 +39,7 @@ class ViewprofilesController < ApplicationController
   # GET /viewprofiles/1
   # GET /viewprofiles/1.json
   def show
+    format.js
   end
 
   # GET /viewprofiles/new

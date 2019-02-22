@@ -1,0 +1,83 @@
+<thead>
+        <tr>
+            <th width="15%">name</th>
+            <th>species</th>
+            <th width="2%">gender</th>
+            <th>color</th>
+            <th>markings</th>
+            <th>location</th>
+            <th width="2%">neutered</th>
+            <th width="2%">vaccinated</th>
+            <th width="2%">adopted</th>
+            <th>remarks</th>
+            <th>cage label</th>
+            <th width="6%"></th>
+        </tr> 
+      </thead>
+      <tbody>
+        <%   @animalprofiles.each do |animalprofile| %>
+          <tr class="<%= animalprofile.id %>">
+            <td class="name"><%= animalprofile.name %></td>
+            <td><%= animalprofile.species %></td>
+            <td><%= animalprofile.gender %></td>
+            <td><%= animalprofile.color %></td>
+            <td><%= animalprofile.markings %></td>
+            <td><%= animalprofile.location %></td>
+            <td>
+              <%if animalprofile.neutered == '1' %>
+                <i class="ui blue check icon"></i>
+              <% else animalprofile.neutered == '0' %>
+                <i class="ui close disabled icon"></i>
+              <% end %>
+
+            </td>
+            <td>
+              <%if animalprofile.vaccinated == '1' %>
+                <i class="ui blue check icon"></i>
+              <% else animalprofile.vaccinated == '0' %>
+                <i class="ui close disabled icon"></i>
+              <% end %>
+            </td>
+            <td>
+              <%if animalprofile.adopted == '1' %>
+                <i class="ui blue check icon"></i>
+              <% else animalprofile.adopted == '0' %>
+                <i class="ui close disabled icon"></i>
+              <% end %>
+            </td>
+            <td><%= animalprofile.remarks %></td>
+            <td><%= animalprofile.cagelabel %></td>
+
+            <!-- <td>
+              <%= link_to edit_animalprofile_path(animalprofile), remote: true do%>
+                <i class="edit icon" data-tag='<%= animalprofile.id %>' ></i>
+              <% end %>
+              <%= link_to animalprofile, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                  <i class="ui trash icon" data-tag='<%= animalprofile.id %>'></i>
+                <% end %>
+            </td> 
+ -->
+            <td>
+              <a data-remote="true" href="/animalprofiles/<%= animalprofile.id %>/edit" data-tag='<%= animalprofile.id %>' >
+                <i class="edit icon"></i>
+              </a>              
+            
+              <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/animalprofiles/<%= animalprofile.id %>">
+                  <i class="ui trash icon" data-tag='<%= animalprofile.id %>'></i>
+              </a>            
+            </td>
+
+          </tr>
+        <% end %>
+
+          <tr class="addprofilerow">
+            <%= render 'addform', animalprofile: @animalprofile %>
+          </tr>
+
+      </tbody>
+
+      <script type="text/javascript">
+        
+      </script>
+
+      

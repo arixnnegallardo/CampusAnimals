@@ -27,7 +27,7 @@
 
 ################################################################################################################# -->
 
-<%= form_with(model: animalprofile, local: true) do |form| %>
+<%= form_with(model: animalprofile) do |form| %>
   <% if animalprofile.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(animalprofile.errors.count, "error") %> prohibited this animalprofile from being saved:</h2>
@@ -40,78 +40,102 @@
     </div>
   <% end %>
 
-  <div class="field">
+ <!--  <div class="field">
     animal ID
-    <div class="ui fluid input"> <%= form.number_field :animalID %></div>
+    <div class="small ui fluid input"> <%= form.number_field :animalID %></div>
   </div>
 
   <div class="field">
     profile ID
-    <div class="ui fluid input"> <%= form.number_field :profileID %> </div>
-  </div>
+    <div class="small ui fluid input"> <%= form.number_field :profileID %> </div>
+  </div> -->
 
-  <div class="field">
+<br><br>
+<div style="font-weight: bold;font-size: 17px"> UPDATE ANIMAL PROFILE </div>
+<br>
+
+<div class="field">
     name
-    <div class="ui fluid input"> <%= form.text_field :name %> </div>
-  </div>
+    <div class="small ui fluid input"> <%= form.text_field :name %> </div>
+</div>
 
   <div class="field">
     species
-    <div class="ui fluid input"> <%= form.text_field :species %> </div>
+    <div class="small ui fluid input"> <%= form.text_field :species %> </div>
   </div>
 
   <div class="field">
     gender
-    <div class="ui fluid input"> <%= form.text_field :gender %> </div>
+    <div class="small ui fluid input"> <%= form.text_field :gender %> </div>
   </div>
 
   <div class="field">
     color
-    <div class="ui fluid input"> <%= form.text_field :color %> </div>
+    <div class="small ui fluid input"> <%= form.text_field :color %> </div>
   </div>
 
   <div class="field">
     markings
     <div class="ui form">
-    <textarea name="animalprofile[markings]" id="animalprofile_markings"> </textarea>
+    <textarea name="animalprofile[markings]" id="animalprofile_markings" rows="2"> 
+        <%= animalprofile.markings %>
+    </textarea>
     </div>
   </div>
 
   <div class="field">
     location
-    <div class="ui fluid input"> <%= form.text_field :location %></div>
+    <div class="small ui fluid input"> <%= form.text_field :location %></div>
   </div>
 
   <div class="field">
-    neutered
-    <div class="ui fluid input"> <%= form.text_field :neutered %> </div>
+    neutered &nbsp;&nbsp;&nbsp;&nbsp;
+    <select style="width: 40px" name="animalprofile[neutered]" id="animalprofile_neutered" >
+                <option value="" selected disabled>T/F</option>
+                <option value="1">T</option>
+                <option value="0">F</option>
+              </select>
   </div>
 
   <div class="field">
-    vaccinated
-    <div class="ui fluid input"> <%= form.text_field :vaccinated %> </div>
+    vaccinated &nbsp;&nbsp;&nbsp;&nbsp;
+    <select style="width: 40px" name="animalprofile[vaccinated]" id="animalprofile_vaccinated" >
+                <option value="" selected disabled>T/F</option>
+                <option value="1">T</option>
+                <option value="0">F</option>
+              </select>
   </div>
 
   <div class="field">
-    adopted
-    <div class="ui fluid input"> <%= form.text_field :adopted %> </div>
+    adopted &nbsp;&nbsp;&nbsp;&nbsp;
+    <select style="width: 40px" name="animalprofile[adopted]" id="animalprofile_adopted" >
+                <option value="" selected disabled>T/F</option>
+                <option value="1">T</option>
+                <option value="0">F</option>
+              </select>
   </div>
 
   <div class="field">
     remarks
     <div class="ui form">
-     <textarea name="animalprofile[remarks]" id="animalprofile_remarks"></textarea></div>
+     <textarea name="animalprofile[remarks]" id="animalprofile_remarks" rows="2">
+        <%= animalprofile.remarks %>
+     </textarea></div>
   </div>
 
   <div class="field">
     cage label
-    <div class="ui fluid input"> <%= form.text_field :cagelabel %> </div>
+    <div class="small ui fluid input"> <%= form.text_field :cagelabel %> </div>
   </div>
 
   <br>
-  <div class="actions" style="text-align: right">
-    <a href="/animalprofiles"><div class="ui basic blue button">BACK</div></a>
-    <input class="ui blue button" type="submit" name="commit" value="Add Animal Profile" data-disable-with="Add Animal Profile" />
+  <div class="actions" style="text-align: right;">
+    <a href="/animalprofiles"><div class="mini ui basic blue button">BACK</div></a>
+    <input class="update mini ui blue button" type="submit" name="commit" value="Update Animal Profile" data-disable-with="Add Animal Profile" />
   </div>
 <% end %>
 
+
+<!-- <script type="text/javascript">
+  $("#animalprofile_neutered").val("1");
+</script> -->

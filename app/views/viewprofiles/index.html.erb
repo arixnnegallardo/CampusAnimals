@@ -98,8 +98,8 @@
 
         <% @animalprofiles.each do |animalprofile| %>
             <div class="card">
-                <div class="image">
-                    <img src="https://via.placeholder.com/150">
+                <div class=" centered image" style="text-align: center">
+                    <img  style='width: 250px;height: 250px' src="/assets/<%=animalprofile.name %>.jpg">
                 </div>
                 <div class="content">
                     <div class="header"><%= animalprofile.name %></div>
@@ -107,17 +107,42 @@
                         <%= animalprofile.gender %>, <%= animalprofile.species %>
                     </div>
                     <div class="description">
-                        neutered: <%= animalprofile.neutered %> <br>
-                        vaccinated: <%= animalprofile.vaccinated %><br>
-                        adopted: <%= animalprofile.adopted %>
+
+                         <%if animalprofile.neutered == '1' %>
+                            <i class="ui blue check icon"></i>
+                          <% else animalprofile.neutered == '0' %>
+                            <i class="ui close disabled icon"></i>
+                          <% end %> 
+                            neutered
+
+                          <br>
+                        <%if animalprofile.vaccinated == '1' %>
+                <i class="ui blue check icon"></i>
+              <% else animalprofile.vaccinated == '0' %>
+                <i class="ui close disabled icon"></i>
+              <% end %>
+                vaccinated
+              <br>
+                        <%if animalprofile.adopted == '1' %>
+                <i class="ui blue check icon"></i>
+              <% else animalprofile.adopted == '0' %>
+                <i class="ui close disabled icon"></i>
+              <% end %>
+                adopted
                     </div>
                 </div>
+
                 <div class="extra content" style="text-align: center">
-                    <%= link_to 'view full profile', animalprofile %>
+                    <%= link_to animalprofile, remote: true do%>
+                        <button class="mini ui fluid button" style="background-color: transparent;border-color: white"> view full profile </button>
+                    <%end%>
                 </div>
             </div>
 
         <% end %>
 
     </div>
+</div>
+
+<div class="ui container" id='expandprofile' style="border: solid;border-top-color: #08E8DE;border-left-color: #08E8DE;border-top-width: 1px;border-left-width: 1px;border-right-color: white;border-bottom-color: white;position: fixed; right: 0;bottom: 0;width: 40%;background-color: white;">
 </div>

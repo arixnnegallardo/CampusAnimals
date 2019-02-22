@@ -1,0 +1,22 @@
+<tr>
+            <td><%= animalprofile.name %></td>
+            <td><%= animalprofile.species %></td>
+            <td><%= animalprofile.gender %></td>
+            <td><%= animalprofile.color %></td>
+            <td><%= animalprofile.markings %></td>
+            <td><%= animalprofile.location %></td>
+            <td><%= animalprofile.neutered %></td>
+            <td><%= animalprofile.vaccinated %></td>
+            <td><%= animalprofile.adopted %></td>
+            <td><%= animalprofile.remarks %></td>
+            <td><%= animalprofile.cagelabel %></td>
+
+            <td>
+              <%= link_to edit_animalprofile_path(animalprofile) do%>
+                <i class="edit icon"></i>
+              <% end %>
+              <%= link_to animalprofile, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                  <i class="ui trash icon"></i>
+                <% end %>
+            </td>
+          </tr>

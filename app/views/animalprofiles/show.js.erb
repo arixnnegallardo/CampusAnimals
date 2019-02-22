@@ -1,0 +1,12 @@
+$("#expandprofile").html("<%= j render 'show', animalprofile:@animalprofile %>");
+
+$(".close").click(function(event) {
+	$("#expandprofile").html("");	
+});
+
+$(document).on('keypress',function(e) {
+    if(e.which == 27) {
+    		alert("esc");
+    	}
+
+   });
