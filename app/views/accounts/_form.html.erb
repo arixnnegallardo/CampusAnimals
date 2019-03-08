@@ -1,0 +1,44 @@
+<%= form_with(model: account, local: true) do |form| %>
+  <% if account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(account.errors.count, "error") %> prohibited this account from being saved:</h2>
+
+      <ul>
+      <% account.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <style type="text/css">
+     body {
+          background-image: url("/assets/signin.jpg");
+          background-size: 140%;
+     }
+</style>
+
+
+<body>
+<div class="ui container segment" style="text-align: center;padding: 5%;padding-bottom: 5%;width: 30%;margin-top: 20%">
+     <i class="sign-in alternate icon"></i> LOGIN
+     <div class="mini ui form" style="margin-top: 8%">
+               <div class="field">
+                    <div class="ui transparent input" style="border-bottom: solid;border-bottom-width: .3px"> 
+                         <input style="text-align: center" type="text" class='ui fluid input' name="account[username]" id="account_username"> 
+                    </div>
+                    <label>username</label>
+               </div>
+               <div class="field">
+                    <div class="ui transparent input" style="border-bottom: solid;border-bottom-width: .3px"> 
+                         <input style="text-align: center" type="password" class='ui fluid input' name="account[password]" id="account_password"> 
+                    </div>
+                    <label>password</label>
+               </div>
+               <div class="field" style="text-align: right">
+                    <button class="mini ui blue button" name="commit" data-disable-with="sign-in">sign-in</button>
+               </div>
+     </div>
+</div>
+</body>
+<% end %>

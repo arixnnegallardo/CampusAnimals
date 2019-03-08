@@ -22,3 +22,4 @@
 //= require jquery_ujs
 //= require_tree .
 //= require autosize
+//= require jquery.remotipart

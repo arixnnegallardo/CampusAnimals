@@ -58,3 +58,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'semantic-ui-sass'
 gem 'jquery-rails'
 gem 'autosize'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'remotipart', '~> 1.2'

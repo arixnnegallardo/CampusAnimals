@@ -1,0 +1,43 @@
+<%= form_for @upload, html: { multipart: true } do |f| %>
+  <% if @upload.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@upload.errors.count, "error") %> prohibited this upload from being saved:</h2>
+ 
+      <ul>
+      <% @upload.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <style type="text/css">
+    body {
+              background-image: url("/assets/upload.jpg");
+              background-size: 100%;
+        }
+  </style>
+ 
+  <body>
+    <div class="ui container segment" style="margin:10%;padding:5%;width: 50%">
+    <div style="font-size: 20px;font-weight: bolder;text-transform: uppercase;">
+      <i class="ui image icon"></i> UPLOAD DISPLAY PICTURE FOR <%= @idname %>
+    </div>
+    <div class="ui form"> 
+      <div class="field">
+        <input hidden type="text" name="upload[name]" id="upload_name" value="<%= @idname %>" />
+      </div>
+      <div class="field">
+        <input type="file" name="upload[image]" id="upload_image" />
+      </div>
+      <div class="actions" style="text-align: right">
+        <button class="ui blue button"  type="submit" name="commit" data-disable-with="upload" />
+          <i class="ui upload icon"></i>
+          upload
+        </button>
+      </div>
+    </div>
+  </div>
+  </body>
+
+<% end %>

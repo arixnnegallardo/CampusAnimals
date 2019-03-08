@@ -34,14 +34,16 @@
 
 <p id="notice"><%= notice %></p>
 
+
+
 <div class="ui fluid container" style="padding-top: 3%;padding-bottom: 3%;padding-left: 8.5%;padding-right: 13.5%;position: fixed;top: 0;z-index: 10;background-color: white">
     <div class="ui grid">
         <div class="row">
             <div class="ui seven wide column" style="font-size: 30px">
-                campus animals
+                <a href='/homes'> campus animals </a>
             </div>
             <div class="ui nine wide column" style="text-align: right; font-size: 15px">
-                    <a href="#">browse profiles </a> &nbsp;&nbsp;&nbsp;&nbsp;  
+                    <a href="/viewprofiles">browse profiles </a> &nbsp;&nbsp;&nbsp;&nbsp;  
                     <a href="animalprofiles">add/edit profiles </a>&nbsp;&nbsp;&nbsp;&nbsp;
                 logout
             </div>
@@ -52,21 +54,23 @@
 <div class="ui container" style="padding-top: 6%;padding-left: 3%;padding-right: 3%">
     <div class="ui grid">
         <div class="row">
-            <div class="three wide column" style="font-size: 15px;font-weight: bolder;">
-                showing all profiles
+            <div class="bottom aligned five wide column" style="font-size: 15px;font-weight: bolder;">
+                <%= @query %>
+
             </div>
-            <div class="thirteen wide column" style="text-align: right;">
+            <div class="eleven wide column" style="text-align: right;">
                 <div class="ui icon input" style="display: inline-block;">
                     <i class="search icon"></i>
-                    <input type="text" placeholder="Search...">
+                    <input hidden type="text" placeholder="Search by name...">
+                    <input type="text" name="search" id="search" placeholder="Search by name..."/>
                 </div>
 
                 <div class="ui form" style="display: inline-block;">
-                    <select class="ui fluid dropdown" name='cat '>
+                    <select class="filter animal ui fluid dropdown" name='cat '>
                         <option value="" selected="selected" disabled>animals</option>
-                        <option value="business">dog</option>
-                        <option value="job inquiry">cat</option>
-                        <option value="general">bird</option>
+                        <option value="dog">dog</option>
+                        <option value="cat">cat</option>
+                        <option value="bird">bird</option>
                     </select>
                 </div>
 
@@ -99,7 +103,7 @@
         <% @animalprofiles.each do |animalprofile| %>
             <div class="card">
                 <div class=" centered image" style="text-align: center">
-                    <img  style='width: 250px;height: 250px' src="/assets/<%=animalprofile.name %>.jpg">
+                    <img  style='width: 250px;height: 250px' src="/uploads/upload/image/<%= animalprofile.name %>/image.jpg">
                 </div>
                 <div class="content">
                     <div class="header"><%= animalprofile.name %></div>
@@ -146,3 +150,17 @@
 
 <div class="ui container" id='expandprofile' style="border: solid;border-top-color: #08E8DE;border-left-color: #08E8DE;border-top-width: 1px;border-left-width: 1px;border-right-color: white;border-bottom-color: white;position: fixed; right: 0;bottom: 0;width: 40%;background-color: white;">
 </div>
+
+<script type="text/javascript">
+    $("#search").on('keypress', function(event) {
+        if(event.which == 13) {
+            var new_path = "/viewprofiles?search="+$.trim($("#search").val());
+            document.location.href = new_path;
+        }
+    });
+    $(".filter.animal").change(function(event) {
+        //alert($(this).val());
+        var new_path = "/viewprofiles?animal="+$.trim($(this).val());
+        document.location.href = new_path;
+    });
+</script>

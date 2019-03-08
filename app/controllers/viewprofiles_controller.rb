@@ -29,11 +29,28 @@
 
 class ViewprofilesController < ApplicationController
   before_action :set_viewprofile, only: [:show, :edit, :update, :destroy]
+  require 'digest'  
 
   # GET /viewprofiles
   # GET /viewprofiles.json
   def index
-    @animalprofiles = Animalprofile.all
+     if request.get?
+          if params[:search]
+              @query = "showing results for: " + params[:search]
+              @animalprofiles = Animalprofile.search(params[:search]) 
+          elsif params[:animal]
+              @query = "showing all " + params[:animal] + "s"
+              @animalprofiles = Animalprofile.filter_species(params[:animal])
+          else
+              #@hello = Digest::SHA256.hexdigest("this is a test") 
+              @query = "showing all profiles"
+              @animalprofiles = Animalprofile.all
+          end
+     else
+          #@hello = Digest::SHA256.hexdigest("this is a test") 
+          @query = "showing all profiles"
+          @animalprofiles = Animalprofile.all
+     end 
   end
 
   # GET /viewprofiles/1
