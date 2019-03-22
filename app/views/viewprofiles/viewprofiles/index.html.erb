@@ -1,0 +1,203 @@
+<!-- #################################################################################################################
+#MIT License
+
+#Copyright (c) 2019 Arianne Gallardo
+
+#Permission is hereby granted, free of charge, to any person obtaining a copy
+#of this software and associated documentation files (the "Software"), to deal
+#in the Software without restriction, including without limitation the rights
+#to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#copies of the Software, and to permit persons to whom the Software is
+#furnished to do so, subject to the following conditions:
+
+#The above copyright notice and this permission notice shall be included in all
+#copies or substantial portions of the Software.
+
+#THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+#SOFTWARE.
+
+#This is a course requirement for CS 192 Software Engineering II under the supervision 
+#of Asst. Prof. Ma. Rowena C. Solamo of the Department of Computer Science, College of Engineering, 
+#University of the Philippines, Diliman for the AY 2015-2016.
+
+################################################################################################################# -->
+
+<style type="text/css">
+    a:hover {background-color:transparent;color: maroon}
+    .extra:hover {cursor: pointer};
+    .eraser {
+     cursor: pointer;
+  }
+
+</style>
+
+<p id="notice"><%= notice %></p>
+
+
+
+<div class="ui fluid container" style="padding-top: 3%;padding-bottom: 3%;padding-left: 8.5%;padding-right: 13.5%;position: fixed;top: 0;z-index: 10;background-color: white">
+    <div class="ui grid">
+        <div class="row">
+            <div class="ui seven wide column" style="font-size: 30px">
+                <a href='/homepage'> campus animals </a>
+            </div>
+            <div class="ui nine wide column" style="text-align: right; font-size: 15px">
+                    <a href="/viewprofiles">browse profiles </a> &nbsp;&nbsp;&nbsp;&nbsp;  
+
+                <%if !@my_session.nil? %> 
+                    <a href="/animalprofiles">add/edit profiles </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                     <% if @my_session == Account.find_by_id(0).username %>
+                              <% if session[:random].nil? %>
+                                   <a href="/generate_token?origin=homepage">generate login token </a>
+                                   &nbsp;&nbsp;&nbsp;&nbsp;
+                              <% else %>
+                                   <a class="regenerate">token: <%= session[:random] %> </a>
+                                   &nbsp; <i class="eraser icon"></i>
+                                   &nbsp;&nbsp;&nbsp;&nbsp;
+                              <% end %>
+                    <% end %>
+                    <a href="/logout">logout</a>
+                <% else %> 
+                    <a href="/login">log in</a>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ui container" style="padding-top: 6%;padding-left: 3%;padding-right: 3%">
+  <div class="ui fluid basic green button" style="padding: 1.4vw"> 
+    <font size="2vw">
+      <i class="hand paper icon"></i> PLEDGE TO SUPPORT OUR CAMPIGN<br> 
+    </font>
+  </div>
+  <br> 
+    <div class="ui grid">
+        <div class="row">
+            <div class="bottom aligned five wide column" style="font-size: 15px;font-weight: bolder;">
+                <%= @query %>
+
+            </div>
+            <div class="eleven wide column" style="text-align: right;">
+                <div class="ui icon input" style="display: inline-block;">
+                    <i class="search icon"></i>
+                    <input hidden type="text" placeholder="Search by name...">
+                    <input type="text" name="search" id="search" placeholder="Search by name..."/>
+                </div>
+
+                <div class="ui form" style="display: inline-block;">
+                    <select class="filter animal ui fluid dropdown" name='cat '>
+                        <option value="" selected="selected" disabled>animals</option>
+                        <option value="dog">dog</option>
+                        <option value="cat">cat</option>
+                        <option value="bird">bird</option>
+                    </select>
+                </div>
+
+                <div class="ui form" style="display: inline-block;">
+                    <select class="ui fluid dropdown" name='cat '>
+                        <option value="" selected="selected" disabled>locations</option>
+                    </select>
+                </div>
+
+                <div class="ui form" style="display: inline-block;">
+                    <select class="ui fluid dropdown" name='cat '>
+                        <option value="" selected="selected" disabled>neutered</option>
+                    </select>
+                </div>
+
+                <div class="ui form" style="display: inline-block;">
+                    <select class="ui fluid dropdown" name='cat '>
+                        <option value="" selected="selected" disabled>adopted</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ui container"  style="padding-top: 3%;padding-left: 3%;padding-right: 3%">
+  <div class="ui four cards">
+
+        <% @animalprofiles.each do |animalprofile| %>
+            <div class="card">
+                <div class=" centered image" style="text-align: center">
+                    <img  style='width: 250px;height: 250px' src="/uploads/upload/image/<%= animalprofile.name %>/image.jpg">
+                </div>
+                <div class="content">
+                    <div class="header"><%= animalprofile.name %></div>
+                    <div class="meta">
+                        <%= animalprofile.gender %>, <%= animalprofile.species %>
+                    </div>
+                    <div class="description">
+
+                         <%if animalprofile.neutered == '1' %>
+                            <i class="ui blue check icon"></i>
+                          <% else animalprofile.neutered == '0' %>
+                            <i class="ui close disabled icon"></i>
+                          <% end %> 
+                            neutered
+
+                          <br>
+                        <%if animalprofile.vaccinated == '1' %>
+                <i class="ui blue check icon"></i>
+              <% else animalprofile.vaccinated == '0' %>
+                <i class="ui close disabled icon"></i>
+              <% end %>
+                vaccinated
+              <br>
+                        <%if animalprofile.adopted == '1' %>
+                <i class="ui blue check icon"></i>
+              <% else animalprofile.adopted == '0' %>
+                <i class="ui close disabled icon"></i>
+              <% end %>
+                adopted
+                    </div>
+                </div>
+
+                <div class="extra content" style="text-align: center">
+                    <%= link_to animalprofile, remote: true do%>
+                        <button class="mini ui fluid button" style="background-color: transparent;border-color: white"> view full profile </button>
+                    <%end%>
+                </div>
+            </div>
+
+        <% end %>
+
+    </div>
+</div>
+
+<div class="ui container" id='expandprofile' style="border: solid;border-top-color: #08E8DE;border-left-color: #08E8DE;border-top-width: 1px;border-left-width: 1px;border-right-color: white;border-bottom-color: white;position: fixed; right: 0;bottom: 0;width: 40%;background-color: white;">
+</div>
+
+<script type="text/javascript">
+    $("#search").on('keypress', function(event) {
+        if(event.which == 13) {
+            var new_path = "/viewprofiles?search="+$.trim($("#search").val());
+            document.location.href = new_path;
+        }
+    });
+    $(".filter.animal").change(function(event) {
+        //alert($(this).val());
+        var new_path = "/viewprofiles?animal="+$.trim($(this).val());
+        document.location.href = new_path;
+    });
+
+     $(".regenerate").click(function(event) {
+          var c = confirm("Generate a new token?");
+          if(c)
+               window.location.replace("/generate_token?origin=viewprofiles"); 
+     });
+
+     $(".eraser.icon").click(function(event) {
+          var c = confirm("Destroy this current active token?")
+          if(c)
+               window.location.replace("/end_session?origin=viewprofiles");
+     });
+</script>
