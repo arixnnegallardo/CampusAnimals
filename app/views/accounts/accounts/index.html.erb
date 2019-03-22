@@ -1,0 +1,52 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Accounts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Password</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @accounts.each do |account| %>
+      <tr>
+        <td><%= account.username %></td>
+        <td><%= account.password %></td>
+        <td><%= link_to 'Show', account %></td>
+        <td><%= link_to 'Edit', edit_account_path(account) %></td>
+        <td><%= link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<div class="ui container segment" style="text-align: center;padding: 5%;padding-bottom: 5%;width: 30%;margin-top: 20%">
+     <i class="sign-in alternate icon"></i> LOGIN
+     <div class="mini ui form" style="margin-top: 8%">
+              <form method="post" action="/accounts">
+                    <div class="field">
+                    <div class="ui transparent input" style="border-bottom: solid;border-bottom-width: .3px"> 
+                         <input style="text-align: center" type="text" class='ui fluid input' name='username' id='username'> 
+                    </div>
+                    <label>username</label>
+               </div>
+               <div class="field">
+                    <div class="ui transparent input" style="border-bottom: solid;border-bottom-width: .3px"> 
+                         <input style="text-align: center" type="password" class='ui fluid input' name='password_digest' id='password_digest'> 
+                    </div>
+                    <label>password</label>
+               </div>
+               <div class="field" style="text-align: right">
+                    <button class="mini ui blue button" type='submit' name="commit" data-disable-with="sign-in">sign-in</button>
+               </div>
+              </form>
+     </div>
+</div>
+
+<%= link_to 'New Account', new_account_path %>
