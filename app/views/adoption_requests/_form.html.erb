@@ -1,0 +1,143 @@
+<style type="text/css">
+     .header {
+          font-weight: bolder;
+          font-size: 0.8vw;
+     }
+
+     .sub {
+          font-weight: lighter;
+          font-size: 0.8vw;
+     }
+</style>
+
+<div class="ui grid">
+     <div class="ui row">
+          <div class="ui six wide column">
+               <form id='reqform' action="/adoption_requests" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="HXr49TrIhbgBJyzd9ZaAOTUdLGjvZKdV+Ns9CifUnexq8cYfNp8ZJkzmKWIOwXX3pDSzzkOduc0uWxoRbMucLQ==" />
+                    <div class="ui mini form">
+
+                         <div class="field">
+                              <label for="adoption_request_name">Name</label>
+                              <input required type="text" placeholder="Firstname Lastname" name="adoption_request[name]" id="adoption_request_name" />
+                         </div>
+
+                         <div class="field">
+                             <label for="adoption_request_email">Email</label>
+                             <input type="email" placeholder="emailID@host.com" name="adoption_request[email]" id="adoption_request_email" />
+                         </div>
+
+                         <div class="field">
+                             <label for="adoption_request_contactno">Contactno</label>
+                             <input required type="text" name="adoption_request[contactno]" id="adoption_request_contactno" placeholder="09123456789" pattern="09[0-9]{9}" />
+                           </div>
+
+                         <div class="field">
+                              <label for="adoption_request_pet">Pet</label>
+                              <input type="text" placeholder='Name of pet' name="adoption_request[pet]" id="adoption_request_pet" />
+                         </div> 
+
+                      <div class="field">
+                        <label for="adoption_request_letter_of_intent">Letter of intent</label>
+                        <textarea id='intent' name="adoption_request[letter_of_intent]" id="adoption_request_letter_of_intent">
+                    </textarea>
+                      </div>
+
+                    <div class="field">
+                      <div class="ui checkbox">
+                           <input id='understand' type="checkbox" name="example">
+                           <label>I've read and understood the reminders.</label>
+                         </div></div>
+
+                         <div class="field">
+                      <div class="actions">
+                             <input disabled id="submitreq" class="ui green button" type="submit" name="commit" value="SUBMIT ADOPTION REQUEST" data-disable-with="SUBMIT REQUEST" />
+                         </div>
+                         </div>
+                    </div>
+               </form>
+          </div>
+
+          <div class="ui ten wide column">
+               <font style="font-weight: bolder;font-size: 1vw">
+                    Important things to note: 
+               </font>               
+               <br>
+               <br>
+               <font style="font-size: 0.7vw">
+                    <div class="ui ordered list">
+                         <div class="header item">CORRECT AND UP-TO-DATE CONTACT INFORMATION
+                              <div class="list">
+                                   <p class="sub item">Make sure that the contact information you'll provide here is active and correct so that we may properly reach you once we've considered your adoption request.</p>
+                                   <p class="sub item">In the case that you've accidentally submitted a request with incorrect information, just submit a new one.</p>
+                              </div>
+                         </div>
+                   
+                     <div class="header item">RESULTS FOR ADOPTION REQUESTS  
+                              <div class="list">
+                                   <p class="sub item">Submitted adoption requests will not be final and will still be subject to further validation. Our team will contact you once we've considered your adoption request.</p>
+                                   <p class="sub item">Because we want to be sure that our campus animals will go to homes where they'll be given love and care, we will take our time to evaluate adoption requests. It will take at least a week for us to get back to you regarding your request.
+                                   </p>
+                                    <p class="sub item">If you haven't received a confirmation email/call from us within ten days, you may follow up your request by giving us a call.</p>
+                              </div>
+                         </div>
+                          
+                         <div class="header item">SPECIFIC CAMPUS PET/STILL UNDECIDED? 
+                              <div class="list">
+                                   <p class="sub item">If you are sure about adopting but not exactly who to adopt, you may just leave the "Pet's Name" field empty.</p>
+                                   <p class="sub item">Our adoption process will then help you find the pet for you.
+                                   </p>
+                              </div>
+                         </div>
+
+                         <div class="header item">LETTER OF INTENT
+                              <div class="list">
+                                   <p class="sub item">For convenience, just paste your letter of intent in this text area (sincerity does not require fancy formatting).</p>
+                                   <p class="sub item">Your letter of intent must indicate your reason for adopting (what motivated you, etc.), and how you can properly care for the campus animals (home condition). Also make sure to introduce yourself (including what you do for a living).
+                                   </p>
+                              </div>
+                         </div>
+
+                         <div class="header item">SPECIFIC CAMPUS PET(S)/STILL UNDECIDED? 
+                              <div class="list">
+                                   <p class="sub item">If you're planning to adopt more than one, you can put all their names here (separate bycomma).</p>
+                                   <p class="sub item">On the other hand, if you are sure about adopting but not exactly who to adopt, you may just leave the "Pet's Name" field empty.</p>
+                                   <p class="sub item">Our adoption process will help you find the pet for you.
+                                   </p>
+                              </div>
+                         </div>
+                     </div>
+               </font>
+          </div>
+
+     </div>
+</div> 
+ 
+<script type="text/javascript">
+     autosize($('textarea'));
+
+     $(".addprofilerow").on('keypress',function(e) {
+               if(e.which == 13) {     
+                    $(".submit").click();        
+                    //$("#profilestable").html("");
+                    location.reload();
+               }
+     });
+
+     $('#understand').click(function(event) {
+          
+          if ($('#understand').is(":checked")) {
+               $("#submitreq").attr("disabled", false);
+          } else {
+               $("#submitreq").attr("disabled", true);
+          }
+     });
+
+     $('#reqform').submit(function(event) {
+          //alert();
+          if ($("#intent").val() == null || $("#intent").val() == "")
+               return false;
+          else return true;
+     });
+</script>
+
+

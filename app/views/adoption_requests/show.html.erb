@@ -1,0 +1,68 @@
+<style type="text/css">
+     a {
+          text-decoration: underline;
+          text-decoration-style: dashed;
+          color: blue;
+     }
+</style>
+
+<div class="ui container" style="text-align: right;margin-top: 5vw;padding-left: 7vw;padding-right: 7vw;">
+      <%if @req.resolved == true %>
+            <a id="unres" data-remote='true' href='/resolve_request/c/<%= @req.id %>' data-tooltip="unresolve?" data-variation="mini" data-position="left center" data-inverted="">
+               mark as unresolved
+            </a>
+          <% else %>
+            <a id="res" data-remote='true' href='/resolve_request/c/<%= @req.id %>' data-tooltip="resolve?" data-variation="mini" data-position="left center" data-inverted="">
+              mark as resolved
+            </a>
+     <% end %>
+     &nbsp;&nbsp;
+     <a data-remote='true' href='#' data-tooltip="coming soon" data-variation="mini" data-position="top center" data-inverted=""> print </a>
+</div>
+
+<div class="ui container" style="margin-top: 2vw;padding-left: 7vw;padding-right: 7vw;">
+     <div class="ui grid">
+          <div class="ui row" style="border: solid;border-color: black;border;border-top-color: white;border-left-color: white;border-right-color: white;border-width: 2px">
+               <div class="ui bottom aligned twelve wide column">
+                    <font style="font-weight: bolder;font-size: 2vw">
+                      ADOPTION REQUEST
+                    </font>
+               </div>
+
+               <div class="ui bottom aligned four wide column" style="text-align: right"> 
+                    <font style="font-weight: bolder;font-size: 1vw">
+                      UPD Campus Animals
+                    </font>
+               </div>
+          </div>
+
+          <div class="ui row" style="padding-top: 2vw">
+               <div class="ui sixteen wide column">
+                    <font style="font-weight: bolder;font-size: 1.2vw">SENDER:</font> <br>
+                    <%= @adoption_request.name %> <br>
+                    <%= @adoption_request.contactno %><br>
+                    <%= @adoption_request.email %><br>
+
+                    <br><br>
+
+                    <font style="font-weight: bolder;font-size: 1.2vw"> DESIRED PET/S: </font><br>
+                    <%= @adoption_request.pet %> <br><br>
+
+                    <font style="font-weight: bolder;font-size: 1.2vw">LETTER OF INTENT: </font><br>
+
+                    <%= @adoption_request.letter_of_intent %>
+
+               </div>
+          </div>
+     </div>
+</div>
+
+<script type="text/javascript">
+     $("#unres").click(function(event) {
+          $(this).text("mark as resolved");
+     });
+
+     $("#res").click(function(event) {
+          $(this).text("mark as unresolved");
+     });
+</script>

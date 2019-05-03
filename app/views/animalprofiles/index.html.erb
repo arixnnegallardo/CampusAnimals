@@ -32,6 +32,10 @@
     cursor: pointer;
   }
 
+  .eraser {
+     cursor: pointer;
+  }
+
   tr:hover {
           background-color: #08E8DE;
         }
@@ -53,23 +57,56 @@
    
 </style>
 
-<div class="ui fluid container" style="padding-top: 3%;padding-bottom: 3%;padding-left: 3%;padding-right: 8%;position: fixed;top: 0;z-index: 10;background-color: white">
+<div class="ui fluid container" style="padding-top: 3%;padding-bottom: 3%;padding-left: 8.5%;padding-right: 7.5%;position: fixed;top: 0;left:0;z-index: 10;background-color: white">
     <div class="ui grid">
         <div class="row">
-            <div class="ui seven wide column" style="font-size: 30px">
-               <a href='/homes'> campus animals </a>
+            <div class="ui five wide column" style="background-color: ;font-size: 30px">
+                <img style='height: 3.5vw;width:3.5vw' src="/assets/logo">
+                <a style='vertical-align: text-top;' href='/homepage'> campus animals </a>
             </div>
-            <div class="ui nine wide column" style="text-align: right; font-size: 15px">
-                    <a href="/viewprofiles">browse profiles </a> &nbsp;&nbsp;&nbsp;&nbsp;  
-                    <a href="#">add/edit profiles </a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="/accounts/destroy">logout </a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="ui bottom aligned eleven wide column" style="background-color: ;text-align: right; font-size: 12px;">
+
+                <% if @my_session == Account.find_by_id(0).username %>
+                  <a href="/donations">donations </a> &nbsp;&nbsp;&nbsp;&nbsp;
+                  <a href="/adoption_requests">adoption requests </a> &nbsp;&nbsp;&nbsp;&nbsp;
+                <% else %>
+                  <a href="/donate">donate </a> &nbsp;&nbsp;&nbsp;&nbsp;
+                  <a href="/adopt">adopt </a> &nbsp;&nbsp;&nbsp;&nbsp;
+                <% end %>
                 
+                    <a href="/viewprofiles">browse profiles </a> &nbsp;&nbsp;&nbsp;&nbsp;  
+                  <a href="/adopt">adopt </a> &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <%if !@my_session.nil? %> 
+                    <a href="/animalprofiles">add/edit profiles </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                     <% if @my_session == Account.find_by_id(0).username %>
+                              <% if session[:random].nil? %>
+                                   <a href="/generate_token?origin=animalprofiles">generate token </a>
+                                   &nbsp;&nbsp;&nbsp;&nbsp;
+                              <% else %>
+                                   <a class="regenerate">token: <%= session[:random] %> </a>
+                                   &nbsp; <i class="eraser icon"></i>
+                                   &nbsp;&nbsp;&nbsp;&nbsp;
+                              <% end %>
+                    <% end %>
+                    <a href="/logout">logout</a>
+                <% else %> 
+                    <a data-remote='true' href="/login">log in</a>
+                <% end %>
             </div>
         </div>
     </div>
 </div>
 
-<div class="ui fluid container" style="padding-top: 6%;padding-left: 3%;padding-right: 3%">
+
+<!-- LOGIN FORM  -->
+<div class="ui container" style="position: fixed;z-index: 11;display: none" id="loginbox">
+</div>
+<div class="ui container" style="position: fixed;background-color: black;opacity: 0.6;z-index: 10;width: 100%;height: 100%;display: none;left: 0;top: 0" id="overlay">
+</div>
+<!-- END OF LOGIN FORM  -->
+
+<div class="ui fluid container" style="padding-top: 10%;padding-left: 3%;padding-right: 3%">
   <div style="font-size: 30px">
     PROFILES
   </div>
@@ -79,12 +116,12 @@
   <div class="ui grid">
     <div class="row">
       <div class="ui sixteen wide column" id='tablespace'>
-        <table class="ui small compact table" id='profilestable'">
+        <table class="ui small compact table" id='profilestable'>
             <%= render 'profiles' %>
         </table>
 <a name="ROWADD"></a>
       </div>
-      <div class="ui five wide column" id="editspace" style="position: fixed; right: 0;display: none;overflow-y: scroll;height: 70%;max-height: 70%;">
+      <div class="ui five wide column" id="editspace" style="z-index: 14;background-color: white;position: fixed; right: 0;display: none;overflow-y: scroll;height: 70%;max-height: 70%;">
         
       </div>
     </div>
@@ -104,18 +141,25 @@
       </div>
       <div class="ui thirteen wide column" style="text-align: right;">
         <div class="ui horizontal link list">
+          <% if @my_session == Account.find_by_id(0).username %>
+            <div class="item" style="color: black;">
+              <u> <a href="/summary_report" style="color: black;">generate summary report</a> </u>
+            </div>
+          <% end %>
           <div class="add item" style="color: black;">
             <u> <a class='gotoadd' style="color: black;">add a new profile</a> </u>
           </div>
           <div class="item" style="color: black;">
             <u> select all </u>
           </div>
-          <div class="item" style="color: black;">
-            <u> delete all </u>
-          </div>
-          <div class="item" style="color: black;">
-            <u> save to database </u>
-          </div>
+          <% if @my_session == Account.find_by_id(0).username %>
+               <div class="item" style="color: black;">
+                    <u> delete all </u>
+               </div>
+               <div class="item" style="color: black;">
+                 <a href='/adminsettings' class="item" style="color: black;text-decoration: underline;"> <%= @my_session %>: settings </a>
+               </div>
+          <% end %>
         </div>  
       </div>
     </div>
@@ -135,6 +179,18 @@
     $(".addprofilerow").css("background-color","yellow");
     location.href="#ROWADD";
   });  
+
+    $(".regenerate").click(function(event) {
+          var c = confirm("Generate a new token?");
+          if(c)
+               window.location.replace("/generate_token?origin=animalprofiles"); 
+     });
+
+     $(".eraser.icon").click(function(event) {
+          var c = confirm("Destroy this current active token?")
+          if(c)
+               window.location.replace("/end_session?origin=animalprofiles");
+     });
 
 </script>
 
@@ -187,5 +243,3 @@
   </table>
 
   <br> -->
-
-

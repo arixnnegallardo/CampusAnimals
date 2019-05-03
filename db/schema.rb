@@ -10,13 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_07_103711) do
+ActiveRecord::Schema.define(version: 2019_04_05_014153) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "username"
     t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "adoption_requests", force: :cascade do |t|
+    t.string "name"
+    t.string "pet"
+    t.text "letter_of_intent"
+    t.string "contactno"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "resolved"
   end
 
   create_table "animalprofiles", force: :cascade do |t|
@@ -37,37 +48,18 @@ ActiveRecord::Schema.define(version: 2019_03_07_103711) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "animalprofiless", primary_key: ["animalID", "profileID"], force: :cascade do |t|
-    t.integer "animalID"
-    t.integer "profileID"
-    t.string "name", limit: 60
-    t.string "species", limit: 30
-    t.string "gender", limit: 8
-    t.string "color", limit: 60
-    t.text "markings"
-    t.string "location", limit: 60
-    t.string "neutered", limit: 4
-    t.string "vaccinated", limit: 4
-    t.string "adopted", limit: 4
-    t.text "remarks"
-    t.string "cagelabel", limit: 20
+  create_table "donations", force: :cascade do |t|
+    t.string "name"
+    t.string "method"
+    t.float "amount"
+    t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "animals", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "contact_no", limit: 15
+    t.string "email", limit: 70
   end
 
   create_table "homes", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "images", force: :cascade do |t|
-    t.string "name"
-    t.string "file"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -87,24 +79,6 @@ ActiveRecord::Schema.define(version: 2019_03_07_103711) do
   end
 
   create_table "viewprofiles", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "xx", force: :cascade do |t|
-    t.integer "animalID"
-    t.integer "profileID"
-    t.string "name", limit: 60
-    t.string "species", limit: 30
-    t.string "gender", limit: 8
-    t.string "color", limit: 60
-    t.text "markings"
-    t.string "location", limit: 60
-    t.string "neutered", limit: 4
-    t.string "vaccinated", limit: 4
-    t.string "adopted", limit: 4
-    t.text "remarks"
-    t.string "cagelabel", limit: 20
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

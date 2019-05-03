@@ -1,4 +1,5 @@
 class AccountsController < ApplicationController
+  skip_before_action :verify_authenticity_token  
   before_action :set_account, only: [:show, :edit, :update, :destroy]
   # protect_from_forgery with: :exception, prepend: true
 
@@ -10,6 +11,47 @@ class AccountsController < ApplicationController
     redirect_to '/accounts/new'
   end
 
+  # GET /adminsettings
+  def admin
+    @my_session = session[:current]
+    if @my_session != Account.find_by_id(0).username
+      redirect_to '/homepage'
+    end
+  end
+
+  # GET /adminsettings_password
+  def passwordchange
+    a = Account.find_by_id(0)
+
+    #print params[:c] + "\n" + a.password 
+    if params[:c] == a.password
+      if params[:n] != params[:r]
+        session[:adminsettingsnotice] = "New passwords didn't match." 
+      else
+        a.password = params[:n]
+        a.save
+        session[:adminsettingsnotice] = "Password successfully changed."
+      end
+    else
+      session[:adminsettingsnotice] = "Wrong current password. Password not changed."  
+      # print session[:adminsettingserror]
+    end
+
+    redirect_to '/adminsettings'
+  end
+
+  # GET /adminsettings_username
+  def adminchange
+    a = Account.find_by_id(0)
+    a.username = params[:new]
+    a.save
+
+    session[:current] = params[:new]
+
+    session[:adminsettingsnotice] = "Username successfully changed."
+    redirect_to '/adminsettings'
+  end
+
   # GET /accounts/1
   # GET /accounts/1.json
   def show
@@ -18,7 +60,13 @@ class AccountsController < ApplicationController
   # GET /accounts/new
   # SECRETARY GENERAL GENERATES A TOKEN FOR ENCODER LOGINS
   def new 
-    @account = Account.new
+     if !session[:current].nil?
+          redirect_to '/animalprofiles'
+     end
+     # @error = "try"
+     # print "ERROR: "
+    print session[:log_error]
+     @account = Account.new
   end
 
   # GET /accounts/1/edit
@@ -29,18 +77,43 @@ class AccountsController < ApplicationController
   # POST /accounts
   # POST /accounts.json
   def create
+     if !session[:current].nil?
+          redirect_to '/animalprofiles'
+     end
+
     @account = Account.new(account_params)
     @pass = Digest::SHA256.hexdigest(@account.password)
-    @id = Account.where(username: @account.username).take
-    if @id.id = 1
-      if @pass == @id.password.downcase
-        session[:current] = @id.username
-        print session[:current]
-        redirect_to '/animalprofiles'
-      else
-        redirect_to '/accounts/new'
-      end 
-    end
+
+    # if @account.username.nil?
+    #   @error = "Wrong username/password."
+    #   redirect_to '/login'
+    # end
+
+    # check if this is an encoder login
+    @tmp = Account.where(username: "encoder").take
+    if @tmp.password == @pass   # input password matches the token for encoders
+          session[:current] = @account.username
+          redirect_to '/animalprofiles'
+    else
+         @account.username = @account.username.strip
+         @id = Account.where(username: @account.username).take
+         if @id.nil?
+          print "NULL"
+           session[:log_error]= "Wrong username/password."
+           redirect_to '/login'
+
+         elsif @id.id = 1
+           print "NOT NULL"
+           if @pass == @id.password.downcase
+             session[:current] = @id.username
+             #print session[:current]
+             redirect_to '/animalprofiles'
+           else
+             session[:log_error] = "Wrong username/password."
+             redirect_to '/login'
+           end 
+         end
+     end
     #print @account.username
     # respond_to do |format|
     #   if @account.save
@@ -70,7 +143,17 @@ class AccountsController < ApplicationController
   # DELETE /accounts/1
   # DELETE /accounts/1.json
   def destroy
-    print session[:username]
+    # if session[:current] != ''
+    #   print "session is not defined"
+    # else
+    #   print "session is defined"
+    #   print session[:current]
+    # end
+
+    # session [:current] = ''
+
+    # redirect_to '/viewprofiles'
+    #
     # @account.destroy
     # respond_to do |format|
     #   format.html { redirect_to accounts_url, notice: 'Account was successfully destroyed.' }

@@ -34,6 +34,7 @@ class ViewprofilesController < ApplicationController
   # GET /viewprofiles
   # GET /viewprofiles.json
   def index
+      @my_session = session[:current];
      if request.get?
           if params[:search]
               @query = "showing results for: " + params[:search]

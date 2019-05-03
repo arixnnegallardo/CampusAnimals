@@ -33,11 +33,12 @@ class AnimalprofilesController < ApplicationController
   # GET /animalprofiles
   # GET /animalprofiles.json
   def index
-    if session[:current] == "admin"
+    @my_session = session[:current]
+    if !session[:current].nil?
       @animalprofiles = Animalprofile.all
       @animalprofile = Animalprofile.new
     else
-      redirect_to '/accounts/new'
+      redirect_to '/login'
     end
   end
   

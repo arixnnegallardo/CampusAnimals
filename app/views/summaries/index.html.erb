@@ -1,0 +1,204 @@
+<div class="ui fluid container" style="padding-top: 3%;padding-bottom: 3%;padding-left: 8.5%;padding-right: 13.5%;position: fixed;top: 0;left:0;z-index: 10;background-color: white">
+    <div class="ui grid">
+        <div class="row">
+            <div class="ui five wide column" style="background-color: ;font-size: 30px">
+                <img style='height: 3.5vw;width:3.5vw' src="/assets/logo">
+                <a style='vertical-align: text-top;' href='/homepage'> campus animals </a>
+            </div>
+             <div class="ui bottom aligned eleven wide column" style="background-color: ;text-align: right; font-size: 12px;">
+
+                <% if @my_session == Account.find_by_id(0).username %>
+                  <a href="/donations">donations </a> &nbsp;&nbsp;&nbsp;&nbsp;
+                  <a href="/adoption_requests">adoption requests </a> &nbsp;&nbsp;&nbsp;&nbsp;
+                <% else %>
+                  <a href="/donate">donate </a> &nbsp;&nbsp;&nbsp;&nbsp;
+                  <a href="/adopt">adopt </a> &nbsp;&nbsp;&nbsp;&nbsp;
+                <% end %>
+                
+                    <a href="/viewprofiles">browse profiles </a> &nbsp;&nbsp;&nbsp;&nbsp;  
+
+                <%if !@my_session.nil? %> 
+                    <a href="/animalprofiles">add/edit profiles </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                     <% if @my_session == Account.find_by_id(0).username %>
+                              <% if session[:random].nil? %>
+                                   <a href="/generate_token?origin=summaries">generate token </a>
+                                   &nbsp;&nbsp;&nbsp;&nbsp;
+                              <% else %>
+                                   <a class="regenerate">token: <%= session[:random] %> </a>
+                                   &nbsp; <i class="eraser icon"></i>
+                                   &nbsp;&nbsp;&nbsp;&nbsp;
+                              <% end %>
+                    <% end %>
+                    <a href="/logout">logout</a>
+                <% else %> 
+                    <a data-remote='true' href="/login">log in</a>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ui container" style="margin-top: 10%">
+<!-- INSERT CODE -->
+  
+<div class="ui very padded vertical masthead center aligned segment" id="index">
+  <h1 class="ui center aligned red icon header">
+    <i class="book icon"></i>
+    SUMMARY REPORT
+  </h1>
+  <div class="ui hidden divider"></div>
+  <div class="ui text container" id="description">
+    <p>These records store information gathered by UP FOCA in line with its mission and vision.</p>
+    <p>Its goal is to eliminate the full dependence of physical copies of records which is a hassle to organize and slow to inform. </p>
+  </div>
+
+  <br>
+  <br>
+</div>
+<br>
+
+<div class="ui three column grid">
+  <div class="column">
+    <div class="ui fluid card">
+      <div class="image">
+        <img src="/assets/catdogsum.png">
+      </div>
+      <div class="content">
+        <a class="header">TOTAL NUMBER OF ANIMALS</a>
+        <div class="meta">
+          <h1><%= @animalprofiles.count %></h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="ui fluid card">
+      <div class="image">
+        <img src="/assets/catsum.png">
+      </div>
+      <div class="content">
+        <a class="header">TOTAL NUMBER OF CATS</a>
+        <div class="meta">
+          <h1><%= @catprofiles.count %></h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="ui fluid card">
+      <div class="image">
+        <img src="/assets/dogsum.png">
+      </div>
+      <div class="content">
+        <a class="header">TOTAL NUMBER OF DOGS</a>
+        <div class="meta">
+          <h1><%= @dogprofiles.count %></h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="ui three column grid">
+  <div class="column">
+    <div class="ui fluid card">
+      <div class="image">
+        <img src="/assets/locsum.png">
+      </div>
+      <div class="content">
+        <a class="header">LOCATIONS</a>
+        <div class="meta">
+          <h1><%= @locations.count %></h1>
+        </div>
+      </div>
+      <div class="extra content">
+        <% @locations.each do |location| %>
+            <h3><%= location.blank? ? "No location" : location %> : <%= @profiles[location].count %></h3>
+            <% @profiles[location].each do |profile| %>
+              <h4><%= profile.name %></h4>
+            <% end %>
+            <br>
+          <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="ui fluid card">
+      <div class="image">
+        <img src="/assets/adoptsum.png">
+      </div>
+      <div class="content">
+        <a class="header">ADOPTED</a>
+        <div class="meta">
+          <h1><%= @adoptions.count %></h1>
+        </div>
+      </div>
+      <div class="extra content">
+        <% @adoptions.each do |adopt| %>
+          <h4><%=adopt.name %></h4>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="ui fluid card">
+      <div class="content">
+        <a class="header" href='/animalprofiles'> < BACK</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- END OF CODE -->
+</div>
+<!-- 
+
+<table>
+  <thead>
+    <tr>
+      <th>Animal Profile</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  	<th><%= @animalprofiles.count %></th>
+  	<th><%= @catprofiles.count %></th>
+  	<th><%= @dogprofiles.count %></th>
+     <% @animalprofiles.each do |animalprofile| %>
+      <tr>
+        <td><%= animalprofile.color %></td>
+
+      </tr>
+    <% end %> 
+    <% @locations.each do |location| %>
+      <tr>
+        <td><%= location %></td>
+
+      </tr>
+    <% end %>
+    
+  </tbody>
+</table>
+
+ -->
+
+ <script type="text/javascript">
+   $(".regenerate").click(function(event) {
+          var c = confirm("Generate a new token?");
+          if(c)
+               window.location.replace("/generate_token?origin=summaries"); 
+     });
+
+     $(".eraser.icon").click(function(event) {
+          var c = confirm("Destroy this current active token?")
+          if(c)
+               window.location.replace("/end_session?origin=summaries");
+     });
+ </script>

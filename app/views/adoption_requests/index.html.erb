@@ -1,0 +1,140 @@
+<style type="text/css">
+  tr:hover td {background:#FFD12A}
+
+  .blue.check {
+    cursor: pointer;
+  }
+
+  .close.disabled {
+    cursor: pointer;
+  }
+</style>
+
+<div class="ui fluid container" style="padding-top: 3%;padding-bottom: 3%;padding-left: 8.5%;padding-right: 13.5%;position: fixed;top: 0;left:0;z-index: 10;background-color: white">
+    <div class="ui grid">
+        <div class="row">
+            <div class="ui five wide column" style="background-color: ;font-size: 30px">
+                <img style='height: 3.5vw;width:3.5vw' src="/assets/logo">
+                <a style='vertical-align: text-top;' href='/homepage'> campus animals </a>
+            </div>
+             <div class="ui bottom aligned eleven wide column" style="background-color: ;text-align: right; font-size: 12px;">
+
+                <% if @my_session == Account.find_by_id(0).username %>
+                  <a href="/donations">donations </a> &nbsp;&nbsp;&nbsp;&nbsp;
+                  <a href="/adoption_requests">adoption requests </a> &nbsp;&nbsp;&nbsp;&nbsp;
+                <% else %>
+                  <a href="/donate">donate </a> &nbsp;&nbsp;&nbsp;&nbsp;
+                  <a href="/adopt">adopt </a> &nbsp;&nbsp;&nbsp;&nbsp;
+                <% end %>
+                
+                    <a href="/viewprofiles">browse profiles </a> &nbsp;&nbsp;&nbsp;&nbsp;  
+
+                <%if !@my_session.nil? %> 
+                    <a href="/animalprofiles">add/edit profiles </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                     <% if @my_session == Account.find_by_id(0).username %>
+                              <% if session[:random].nil? %>
+                                   <a href="/generate_token?origin=adoption_requests">generate token </a>
+                                   &nbsp;&nbsp;&nbsp;&nbsp;
+                              <% else %>
+                                   <a class="regenerate">token: <%= session[:random] %> </a>
+                                   &nbsp; <i class="eraser icon"></i>
+                                   &nbsp;&nbsp;&nbsp;&nbsp;
+                              <% end %>
+                    <% end %>
+                    <a href="/logout">logout</a>
+                <% else %> 
+                    <a data-remote='true' href="/login">log in</a>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ui container" style="padding-top: 8%;padding-left: 1%;padding-right: 3%">
+<h1>Adoption Requests</h1>
+</div>
+
+<div class="ui container" style="padding-top: 2%;padding-left: 1%;padding-right: 3%">
+<table class="ui table">
+  <thead>
+    <tr>
+      <th class="one wide"></th>
+      <th class="three wide">Name</th>
+      <th class="two wide">Pet</th>
+      <th>Contactno</th>
+      <th>Email</th>
+      <th class="one wide"></th>
+      <th class="one wide"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @adoption_requests.each do |adoption_request| %>
+      <tr>
+        <td>
+          <%if adoption_request.resolved == true %>
+            <a data-remote='true' href='/resolve_request/c/<%= adoption_request.id %>' data-tooltip="unresolve?" data-variation="mini" data-position="left center" data-inverted="">
+              
+            <i class="ui blue check icon"></i>
+            </a>
+          <% else %>
+            <a data-remote='true' href='/resolve_request/c/<%= adoption_request.id %>' data-tooltip="resolve?" data-variation="mini" data-position="left center" data-inverted="">
+              <i class="ui close disabled icon"></i>
+            </a>
+          <% end %>
+        </td>
+        <td><%= adoption_request.name %></td>
+        <td><%= adoption_request.pet %></td>
+        <td><%= adoption_request.contactno %></td>
+        <td><%= adoption_request.email %></td>
+
+      <td>
+
+        <a data-tooltip="read full" data-variation="mini" data-position="top center" data-inverted="" target="_blank" href="/adoption_requests/<%= adoption_request.id %>">
+        <i class="bars icon"></i>
+      </a>
+
+      </td> 
+      <td><a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/adoption_requests/<%= adoption_request.id %>">
+          <i class="trash icon"></i>
+      </a></td>
+        <!-- change into icons -->
+       <!--  <td><%= link_to 'Read Full', adoption_request %></td>  --><!-- open a new tab -->
+       <!--  <td><%= link_to 'Delete Request', adoption_request, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+<br>
+
+
+<script type="text/javascript">
+  $(".blue.check").click(function(event) {
+    $(this).removeClass("blue check");
+    $(this).addClass("close disabled");
+  }); 
+
+  $(".close.disabled").click(function(event) {
+    $(this).removeClass("close disabled");
+    $(this).addClass("blue check");
+  });
+
+ $("tr").click(function(event) {
+    $("tr").css("background-color","white");
+    $(this).css("background-color","#FFD12A");
+  });
+ 
+ $(".regenerate").click(function(event) {
+          var c = confirm("Generate a new token?");
+          if(c)
+               window.location.replace("/generate_token?origin=adoption_requests"); 
+     });
+
+     $(".eraser.icon").click(function(event) {
+          var c = confirm("Destroy this current active token?")
+          if(c)
+               window.location.replace("/end_session?origin=adoption_requests");
+     });
+</script>
