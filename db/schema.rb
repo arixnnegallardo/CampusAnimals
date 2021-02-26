@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 2019_04_05_014153) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "resolved"
   end
 
   create_table "animalprofiles", force: :cascade do |t|
@@ -55,8 +54,6 @@ ActiveRecord::Schema.define(version: 2019_04_05_014153) do
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "contact_no", limit: 15
-    t.string "email", limit: 70
   end
 
   create_table "homes", force: :cascade do |t|

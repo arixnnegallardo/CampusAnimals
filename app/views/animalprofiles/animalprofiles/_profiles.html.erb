@@ -91,7 +91,7 @@
                 <i class="edit icon"></i>
               </a>              
             
-              <% if @my_session == Account.find_by_id(0).username %>
+              <% if @my_session and @my_session == Account.find_by_id(0).username %>
                     <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/animalprofiles/<%= animalprofile.id %>">
                        <i class="ui trash icon" data-tag='<%= animalprofile.id %>'></i>
                    </a>  

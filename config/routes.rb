@@ -25,5 +25,6 @@ Rails.application.routes.draw do
   get '/adopt', to: 'adoption_requests#new'
   get '/summary_report', to: 'summaries#index'
   get '/summaries', to: 'summaries#index'
+  get '/createadmin', to: 'accounts#createanadmin'
 end
 

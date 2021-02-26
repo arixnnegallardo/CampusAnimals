@@ -49,7 +49,7 @@
             </div>
              <div class="ui bottom aligned eleven wide column" style="background-color: ;text-align: right; font-size: 12px;">
 
-                <% if @my_session == Account.find_by_id(0).username %>
+                <% if @my_session and @my_session == Account.find_by_id(0).username %>
                   <a href="/donations">donations </a> &nbsp;&nbsp;&nbsp;&nbsp;
                   <a href="/adoption_requests">adoption requests </a> &nbsp;&nbsp;&nbsp;&nbsp;
                 <% else %>
@@ -61,7 +61,7 @@
 
                 <%if !@my_session.nil? %> 
                     <a href="/animalprofiles">add/edit profiles </a>&nbsp;&nbsp;&nbsp;&nbsp;
-                     <% if @my_session == Account.find_by_id(0).username %>
+                     <% if @my_session and @my_session == Account.find_by_id(0).username %>
                               <% if session[:random].nil? %>
                                    <a href="/generate_token?origin=viewprofiles">generate token </a>
                                    &nbsp;&nbsp;&nbsp;&nbsp;

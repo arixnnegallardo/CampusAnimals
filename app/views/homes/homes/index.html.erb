@@ -15,7 +15,7 @@
                     <a href="/viewprofiles">browse profiles </a> &nbsp;&nbsp;&nbsp;&nbsp;  
                     <%if !@my_session.nil? %> 
                          <a href="animalprofiles">add/edit profiles </a>&nbsp;&nbsp;&nbsp;&nbsp;
-                         <% if @my_session == Account.find_by_id(0).username %>
+                         <% if @my_session and @my_session == Account.find_by_id(0).username %>
                               <% if session[:random].nil? %>
                                    <a href="/generate_token?origin=homepage">generate login token </a>
                                    &nbsp;&nbsp;&nbsp;&nbsp;

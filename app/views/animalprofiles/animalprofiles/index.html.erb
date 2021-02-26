@@ -66,7 +66,7 @@
             <div class="ui nine wide column" style="text-align: right; font-size: 15px">
                     <a href="/viewprofiles">browse profiles </a> &nbsp;&nbsp;&nbsp;&nbsp;  
                     <a href="#">add/edit profiles </a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <% if @my_session == Account.find_by_id(0).username %>
+                    <% if @my_session and @my_session == Account.find_by_id(0).username %>
                               <% if session[:random].nil? %>
                                    <a href="/generate_token?origin=homepage">generate login token </a>
                                    &nbsp;&nbsp;&nbsp;&nbsp;
@@ -124,7 +124,7 @@
           <div class="item" style="color: black;">
             <u> select all </u>
           </div>
-          <% if @my_session == Account.find_by_id(0).username %>
+          <% if @my_session and @my_session == Account.find_by_id(0).username %>
                <div class="item" style="color: black;">
                     <u> delete all </u>
                </div>

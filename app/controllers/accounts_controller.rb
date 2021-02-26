@@ -19,6 +19,16 @@ class AccountsController < ApplicationController
     end
   end
 
+  # for testing phase only
+  def createanadmin
+    @account = Account.new(id: 0, username:"administrator", password:"1955d3d3bd0bf620b167b923df0de0ae03e2c4e03d6aa7fb7e945b640ad0152b", created_at: "", updated_at: "")
+    @account.save
+    # for encoder:
+    @account = Account.new(id: 1, username:"encoder", password:"da8de5ab3138b8fa43d7fd9c87168a68252645e4f1529c0ca157deb97d07901f", created_at: "", updated_at: "")
+    @account.save
+  
+  end
+
   # GET /adminsettings_password
   def passwordchange
     a = Account.find_by_id(0)
