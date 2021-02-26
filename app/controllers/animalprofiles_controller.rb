@@ -63,11 +63,15 @@ class AnimalprofilesController < ApplicationController
     @animalprofile = Animalprofile.new(animalprofile_params)
     @animalprofiles = Animalprofile.all
 
+    print "animal profile to be saved"
+
     respond_to do |format|
       if @animalprofile.save
         @animalprofile.animalID = @animalprofile.id; 
         @animalprofile.profileID = @animalprofile.id; 
         @animalprofile.save
+
+        print "animal profile commited"
         
         format.js
         format.html { redirect_to @animalprofile, notice: 'Animalprofile was successfully created.' }
