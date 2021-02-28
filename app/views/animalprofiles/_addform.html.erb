@@ -28,18 +28,6 @@
 ################################################################################################################# -->
 
 <form action="/animalprofiles" accept-charset="UTF-8" data-remote="true" method="post">
-  <% if animalprofile.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(animalprofile.errors.count, "error") %> prohibited this animalprofile from being saved:</h2>
-
-      <ul>
-      <% animalprofile.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <td>
     <textarea rows="1" placeholder="Name" name="animalprofile[name]" id="animalprofile_name" /></textarea>
   </td>
