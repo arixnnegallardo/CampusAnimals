@@ -27,7 +27,7 @@
 
 ################################################################################################################# -->
 
-<%= form_with(model: animalprofile) do |form| %>
+<form action="/animalprofiles" accept-charset="UTF-8" data-remote="true" method="post">
   <% if animalprofile.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(animalprofile.errors.count, "error") %> prohibited this animalprofile from being saved:</h2>
@@ -161,7 +161,7 @@
     <a href="/animalprofiles"><div class="ui basic blue button">BACK</div></a>
     <input class="submit ui blue button" type="submit" name="commit" value="Add Animal Profile" data-disable-with="Add Animal Profile" />
   </div>
-<% end %>
+</form>
 
 <script type="text/javascript">
   /*autosize($('textarea'));*/
